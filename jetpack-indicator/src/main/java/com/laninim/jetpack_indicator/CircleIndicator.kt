@@ -26,6 +26,21 @@ import androidx.compose.ui.unit.Dp
 import com.laninim.jetpack_indicator.exception.MissingTextStyle
 
 
+/**
+ * A composable function to create a circle indicator with customizable properties.
+ *
+ * @param modifier The modifier to apply to the composable.
+ * @param indicatorSize The size of the indicator.
+ * @param backgroundColor The color of the background circle.
+ * @param foregroundColor The color of the foreground circle.
+ * @param indicatorStrokeWidth The stroke width of the circle.
+ * @param progressValue The current progress value.
+ * @param maxProgressValue The maximum progress value.
+ * @param glowLight Set to true to enable a glowing effect around the progress cirlcebar.
+ * @param showPercentage Set to true to show the percentage text in the center of the indicator.
+ * @param textStyle The text style for the percentage text.
+ */
+
 @OptIn(ExperimentalTextApi::class)
 @Composable
 fun CircleIndicator(
