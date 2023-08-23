@@ -30,6 +30,7 @@ fun CustomComponents(
     indicatorStrokeWidth: Float = 70f,
     progressValue : Int,
     maxProgressValue : Int,
+    glowLight : Boolean? = null
 
 ) {
 
@@ -54,6 +55,15 @@ fun CustomComponents(
             indicatorStrokeWidth = indicatorStrokeWidth,
             backgroundColor = backgroundColor
         )
+
+        if(glowLight != null && glowLight == true){
+            drawBlur(
+                componentSize = componentSize,
+                indicatorStrokeWidth = indicatorStrokeWidth,
+                backgroundColor = foregroundColor,
+                sweepAngle = sweepAngle
+            )
+        }
 
 
         foregroundIndicator(
@@ -86,6 +96,32 @@ private fun DrawScope.backgroundIndicator(
             cap = StrokeCap.Round
         )
     )
+}
+
+private fun DrawScope.drawBlur(
+    componentSize : Size,
+    indicatorStrokeWidth : Float,
+    backgroundColor: Color,
+    sweepAngle: Float
+
+    ) {
+    for(i in 0..200){
+        drawArc(
+            color = backgroundColor.copy(alpha =  i / 900f),
+            useCenter = false,
+            startAngle = 150f,
+            sweepAngle = sweepAngle,
+            size = componentSize,
+            topLeft = Offset(
+                x = (size.width - componentSize.width) / 2 ,
+                y = (size.height - componentSize.height) / 2
+            ),
+            style = Stroke(
+                width = indicatorStrokeWidth + ( 15 - i) * 20,
+                cap = StrokeCap.Round
+            )
+        )
+    }
 }
 
 private fun DrawScope.foregroundIndicator(

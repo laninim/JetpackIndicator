@@ -23,7 +23,7 @@ class MainActivity : ComponentActivity() {
                 // A surface container using the 'background' color from the theme
                 Surface(
                     modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
+                    color = Color.Black
                 ) {
                     Column(
                         modifier = Modifier.padding(top = 64.dp),
@@ -33,7 +33,8 @@ class MainActivity : ComponentActivity() {
                             indicatorSize = 150.dp,
                             progressValue = 95,
                             maxProgressValue = 100,
-                            foregroundColor = Color.Yellow
+                            foregroundColor = Color.Yellow,
+                            glowLight = true
                         )
                     }
                 }
