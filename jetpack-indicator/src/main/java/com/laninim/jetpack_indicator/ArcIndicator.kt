@@ -17,12 +17,18 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.graphics.drawscope.Stroke
+import androidx.compose.ui.text.ExperimentalTextApi
+import androidx.compose.ui.text.TextMeasurer
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.drawText
+import androidx.compose.ui.text.rememberTextMeasurer
 import androidx.compose.ui.unit.Dp
+import com.laninim.jetpack_indicator.exception.MissingTextStyle
 
 
-
+@OptIn(ExperimentalTextApi::class)
 @Composable
-fun CustomComponents(
+fun ArcIndicator(
     modifier : Modifier = Modifier,
     indicatorSize : Dp,
     backgroundColor : Color = Color.Gray,
@@ -30,7 +36,9 @@ fun CustomComponents(
     indicatorStrokeWidth: Float = 70f,
     progressValue : Int,
     maxProgressValue : Int,
-    glowLight : Boolean? = null
+    glowLight : Boolean? = null,
+    showPercentage : Boolean,
+    textStyle: TextStyle? = null
 
 ) {
 
@@ -46,6 +54,8 @@ fun CustomComponents(
         targetValue = (2.4 * percentage).toFloat(),
         animationSpec = tween(1000), label = "sweepangleanimation"
     )
+
+    val textMeasurer = rememberTextMeasurer()
 
 
     Canvas(modifier = modifier.size(indicatorSize)){
@@ -72,6 +82,16 @@ fun CustomComponents(
             sweepAngle = sweepAngle,
             indicatorStrokeWidth = indicatorStrokeWidth
         )
+
+        if(showPercentage){
+            //se la percentuale è attiva ma non è stato definito un textstyle.
+            if(textStyle == null){
+                throw MissingTextStyle("If u want show percentage.. need define a textstyle")
+            }
+            textPercentage(percentage.toInt(), textMeasurer, textStyle = textStyle
+            )
+        }
+
     }
 }
 
@@ -143,6 +163,23 @@ private fun DrawScope.foregroundIndicator(
         style = Stroke(
             width = indicatorStrokeWidth,
             cap = StrokeCap.Round
+        )
+    )
+}
+
+@OptIn(ExperimentalTextApi::class)
+private fun DrawScope.textPercentage(
+    percentage : Int,
+    textMeasurer: TextMeasurer,
+    textStyle : TextStyle
+) {
+    val textLayoutResult =  textMeasurer.measure("$percentage%", style = textStyle)
+
+    drawText(
+        textLayoutResult = textLayoutResult,
+        topLeft = Offset(
+            x = (size.width - textLayoutResult.size.width) / 2f,
+            y = (size.height - textLayoutResult.size.height) / 2f
         )
     )
 }
