@@ -57,3 +57,8 @@ CircleIndicator(
             )
         )
 ```
+
+[jetpackindicators.webm](https://github.com/laninim/JetpackIndicator/assets/10306338/19c39c3e-d360-4b61-935e-cb6bc3eadb10)
+
+
+
