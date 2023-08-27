@@ -1,2 +1,8 @@
+# configuration file for building snapshots and releases with jitpack.io
 jdk:
-  -openjdk11
+  - openjdk17
+before_install:
+  - ./scripts/prepareJitpackEnvironment.sh
+install:
+  - FILE="-Dfile=jetpack-indicator-release.aar"
+  - mvn install:install-file $FILE -DgroupId=com.github.laninim -DartifactId=JetpackIndicator -Dversion=1.0 -Dpackaging=aar -DgeneratePom=true

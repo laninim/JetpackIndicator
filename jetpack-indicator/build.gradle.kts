@@ -1,3 +1,8 @@
+
+
+
+
+
 plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
@@ -64,7 +69,7 @@ publishing {
     publications {
         register<MavenPublication>("release") {
             groupId = "com.github.laninim"
-            artifactId = "jetpack-indicators"
+            artifactId = "JetpackIndicator"
             version = "1.0"
 
             afterEvaluate {
